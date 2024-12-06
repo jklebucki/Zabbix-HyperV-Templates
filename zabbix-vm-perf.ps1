@@ -101,7 +101,7 @@ if ($QueryName -eq '') {
 
     foreach ($objItem in $colItems) {
         $line =  ' { "{#VMNAME}":"' + $objItem.Name + '" ,"{#VMSTATE}":"' + $objItem.State  +
-                     '", "{#VMHOST}":"' + $hostname + '" ,"{#REPLICATION}":"' + $objItem.ReplicationState +'" }'
+                     '", "{#VMHOST}":"' + $hostname + '" ,"{#REPLICATION}":"' + $objItem.ReplicationHealth +'" }'
         if ($n -gt 1){
             $line += ","
         }
@@ -159,7 +159,7 @@ if ($psboundparameters.Count -eq 2) {
 				$counterPart1 = Get-PerformanceCounterLocalName(10500)
 				$counterPart2 = Get-PerformanceCounterLocalName(10788)
 				$counterName= "\$counterPart1(*)\$counterPart2"
-				 <# $Results = (Get-Counter -Counter '\Hyper-V - virtueller Prozessor des Hypervisors(*)\% Gesamtausführungszeit' -ErrorAction SilentlyContinue).CounterSamples | Where-Object {$_.InstanceName -like $VMName+':*'} | select InstanceName #>
+				 <# $Results = (Get-Counter -Counter '\Hyper-V - virtueller Prozessor des Hypervisors(*)\% Gesamtausfï¿½hrungszeit' -ErrorAction SilentlyContinue).CounterSamples | Where-Object {$_.InstanceName -like $VMName+':*'} | select InstanceName #>
 				 <# $Results = (Get-Counter -Counter '\Hyper-V Hypervisor Virtual Processor(*)\% Total Run Time' -ErrorAction SilentlyContinue).CounterSamples | Where-Object {$_.InstanceName -like $VMName+':*'} | select InstanceName #>
 				$Results =  (Get-Counter -Counter $counterName -ErrorAction SilentlyContinue).CounterSamples  | Where-Object  {$_.InstanceName -like '*-'+$VMName+'*'} | select InstanceName
 			}
